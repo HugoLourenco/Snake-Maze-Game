@@ -2,29 +2,16 @@ var canvas = document.querySelector('canvas')
 var ctx = canvas.getContext('2d')
 var width = canvas.width
 var height = canvas.height
-
-// Some constants
-var NB_OF_TILES = 10
+let row = this.row  
+let col = this.col
+let frame = 60
+var NB_OF_TILES = 20
 var TILE_SIZE = width / NB_OF_TILES
+let fires = [{x: 475, y: 0}, {x: 475, y: 475}, {x: 400, y: 475}, {x: 325, Y: 100}, {x: 25, y: 175}, {x: 50, y: 325}]
 
-// Iteration 2
-// var player = new Character(0,0,[
-//   'images/
-//   'images/
-//   'images/
-//   'images/
-// ])
-var player = new Character(0, 0, {
-    //   left: 
-    //   up: 
-    //   right: 
-    //   down: 
-})
+var player = new Character(0, 0)
+var fire = new Fire(NB_OF_TILES, NB_OF_TILES, './imagens/fire.png')
 
-// // Iteration 4
-// var treasure = new Treasure(NB_OF_TILES, NB_OF_TILES, 'images/treasure.png')
-
-// Iteration 1
 function drawGrid() {
     ctx.lineWidth = 1 // Change the border width of lines
 
@@ -46,65 +33,48 @@ function drawGrid() {
 
 // Iteration 3
 function drawPlayer() {
-    /* ctx.drawImage(
+    /* ctx.drawImage(   vai ser para por a cobra em verde
       player.imgs[player.orientation], 
       player.col*TILE_SIZE, player.row*TILE_SIZE,
       TILE_SIZE, // TODO: find the right ratio
       TILE_SIZE
     ) */
-    ctx.fillRect(player.col * TILE_SIZE, player.row * TILE_SIZE, 50, 50)
-
+    ctx.fillRect(player.col * TILE_SIZE, player.row * TILE_SIZE, 25, 25)
 
 }
 
-// Iteration 4
-// function drawTreasure() {
-//   ctx.drawImage(
-//     treasure.img, 
-//     treasure.col*TILE_SIZE, treasure.row*TILE_SIZE,
-//     TILE_SIZE, // TODO: find the right ratio
-//     TILE_SIZE
-//   )
-
-// // The naive solution: the picture can blink
-// var img = new Image()
-// img.src = "images/treasure.png"
-// img.onload = function() {
-//   ctx.drawImage(
-//     treasure.img, 
-//     treasure.col*TILE_SIZE, treasure.row*TILE_SIZE,
-//     TILE_SIZE, // TODO: find the right ratio
-//     TILE_SIZE
-//   )
-// }
-
-
 function drawEverything() {
-    //ctx.clearRect(0,0,width,height)
-    drawGrid()
-    //   drawTreasure()
+    // ctx.clearRect(0,0,width,height)
+
+    fire.drawFire(475, 0, ctx),
+    fire.drawFire(475, 475, ctx),
+    fire.drawFire(400, 475, ctx),
+    fire.drawFire(325, 100, ctx),
+    fire.drawFire(25, 175, ctx),
+    fire.drawFire(50, 325, ctx),
+
     drawPlayer()
+    drawGrid()
+    
 }
 
 function updateEverything(keyCode) {
     switch (keyCode) {
-        case 37: player.moveLeft(); break;
+        case 37: 
+        if(player)
+        player.moveLeft(); 
+        break;
         case 38: player.moveUp(); break;
         case 39: player.moveRight(); break;
         case 40: player.moveDown(); break;
     }
+} 
 
-    // Check if the user is on the treasure
-    //   if (player.row === treasure.row && player.col === treasure.col) {
-    //     player.score++
-    //     treasure.setRandomPosition()
-    //   }
-}
 
 // The first drawEverything is triggered after 500ms, to be sure that all pictures are loaded
-setTimeout(() => {
+
     drawEverything()
-}, 500)
+
 
 
 document.onkeydown = function (e) {
@@ -117,3 +87,13 @@ document.onkeydown = function (e) {
     drawEverything()
 }
 
+setInterval(() => {
+    switch(player.orientation){
+        case "down": player.moveDown(); break;
+        case "left": player.moveLeft(); break;
+        case "up": player.moveUp(); break;
+        case "right": player.moveRight(); break;
+    }
+    
+    drawEverything()
+}, 500)

@@ -4,6 +4,8 @@ class Character {
     this.row = initalRow
     this.orientation = 'down'
     this.score = 0
+    this.collision = false
+    this.frame = 60
     // this.collision = (initalRow, initialCol)
     // let collision = new collision
     this.cordinates = [[0,0]]
@@ -11,20 +13,42 @@ class Character {
     // for ( var collision ) {
     //   this.row.push
     // }
+    this.orientation = "down"
+    this.orientation = "up"
+    this.orientation = "left"
+    this.orientation = "right"
   }
 
 
   checkCollison(){
-    this.cordinates.forEach(one => {
-      if (one[0] === this.row && one[1] === this.col) {
+      /* if (this.cordinates[0] === this.row && this.cordinates[1] === this.col) {
+        this.collision = true
         console.log("collision")
       }
       else {
-        console.log("new area")
         this.cordinates.push([this.row, this.col])
-      }
+        console.log("new area")
+      } */
       
-    })};
+      this.cordinates.forEach(coordenade => {
+        if(coordenade[0] === this.row && coordenade[1] === this.col) {
+          
+        }
+      });
+      fires.forEach(lol => {
+       
+        if(this.row === lol.y && this.col === lol.x){
+        }
+        console.log("hit", lol)
+        // console.log('row: ', this.row)
+        // console.log('col: ', this.col)
+        // console.log('lol.y: ', lol.y)
+        // console.log('lol.x: ', lol.x)
+      });
+      // console.log(this.row, this.col)
+      this.cordinates.push([this.row, this.col])
+
+    }
 
     // Save all the images in the character 
     // this.imgs = {}
@@ -33,42 +57,46 @@ class Character {
     //   this.imgs[orientation] = new Image()
     //   this.imgs[orientation].src = imgPaths[orientation]
     // }
-  
+
 
   moveUp() {
     // this.size++
-    if (this.row > 0) {
+    if (this.row > 0 && !this.collision) {
       this.row--
+      this.score++
       this.checkCollison()
       this.orientation = 'up'
-      console.log(this.row)
+      // console.log(this.row)
     }
   }
   moveDown() {
     // this.size++
-    if (this.row < 9) {
+    if (this.row < 19 && !this.collision) {
       this.row++
+      this.score++
       this.checkCollison()
       this.orientation = 'down'
-      console.log(this.row)
+      // console.log(this.row)
     }
   }
   moveLeft() {
     // this.size++
-    if (this.col > 0) {
+    if (this.col > 0 && !this.collision) {
       this.col--
+      this.score++
       this.checkCollison()
       this.orientation = 'left'
-      console.log(this.col)
+      // console.log(this.col)
     }
   }
   moveRight() {
     // this.size++
-    if (this.col < 9) {
+    if (this.col < 19 && !this.collision) {
       this.col++
+      this.score++
       this.checkCollison()
       this.orientation = 'right'
-      console.log(this.col)
+      // console.log(this.col)
     }
   }
 }

@@ -7,10 +7,13 @@ let col = this.col
 let frame = 60
 var NB_OF_TILES = 20
 var TILE_SIZE = width / NB_OF_TILES
-let fires = [{x: 475, y: 0}, {x: 475, y: 475}, {x: 400, y: 475}, {x: 325, Y: 100}, {x: 25, y: 175}, {x: 50, y: 325}]
+var status = "play" // Possible values: "play", "game-over"
 
 var player = new Character(0, 0)
-var fire = new Fire(NB_OF_TILES, NB_OF_TILES, './imagens/fire.png')
+var fires = []
+for (let i = 0; i< 10; i++) {
+    fires.push(new Fire(NB_OF_TILES, NB_OF_TILES))
+}
 
 function drawGrid() {
     ctx.lineWidth = 1 // Change the border width of lines
@@ -19,6 +22,7 @@ function drawGrid() {
     for (var x = 0; x <= height; x += TILE_SIZE) {
         ctx.beginPath()
         ctx.moveTo(x, 0)
+        ctx.fillStyle = "black"
         ctx.lineTo(x, height)
         ctx.stroke()
     }
@@ -31,69 +35,67 @@ function drawGrid() {
     }
 }
 
-// Iteration 3
-function drawPlayer() {
-    /* ctx.drawImage(   vai ser para por a cobra em verde
-      player.imgs[player.orientation], 
-      player.col*TILE_SIZE, player.row*TILE_SIZE,
-      TILE_SIZE, // TODO: find the right ratio
-      TILE_SIZE
-    ) */
-    ctx.fillRect(player.col * TILE_SIZE, player.row * TILE_SIZE, 25, 25)
-
-}
 
 function drawEverything() {
-    // ctx.clearRect(0,0,width,height)
+    ctx.clearRect(0,0,width,height)
 
-    fire.drawFire(475, 0, ctx),
-    fire.drawFire(475, 475, ctx),
-    fire.drawFire(400, 475, ctx),
-    fire.drawFire(325, 100, ctx),
-    fire.drawFire(25, 175, ctx),
-    fire.drawFire(50, 325, ctx),
-
-    drawPlayer()
-    drawGrid()
-    
+    if (status === "play") {
+        for (let i = 0; i < fires.length; i++) {
+            fires[i].draw(ctx)
+        }
+        player.draw(ctx)
+        drawGrid()
+    }
+    else if (status === "game-over") {
+        ctx.save()
+        ctx.fillRect(0,0,width, height)
+        ctx.font = "50px Arial"
+        ctx.fillStyle = "green"
+        ctx.fillText("Game Over", width/4, height/2)
+        ctx.restore()
+    }
 }
 
 function updateEverything(keyCode) {
-    switch (keyCode) {
-        case 37: 
-        if(player)
-        player.moveLeft(); 
-        break;
-        case 38: player.moveUp(); break;
-        case 39: player.moveRight(); break;
-        case 40: player.moveDown(); break;
+    player.update()
+
+    // Check collision with every fire
+    for (let i = 0; i < fires.length; i++) {
+        if (checkCollision(player, fires[i])) {
+
+            console.log("Collision with fire")
+            status = "game-over"
+        }
+        
+    }
+    // check collision with border
+    if (player.col > 19 || player.row > 19) {
+        status = "game-over"
+    }
+    if (player.col < 0 || player.row < 0) {
+        status = "game-over"
     }
 } 
 
-
-// The first drawEverything is triggered after 500ms, to be sure that all pictures are loaded
-
-    drawEverything()
-
+function checkCollision(player, fire) {
+    return player.col === fire.col && player.row === fire.row
+}
 
 
 document.onkeydown = function (e) {
-    e.preventDefault() // Stop the default behavior (moving the screen to the left/up/right/down)
+    e.preventDefault() 
 
-    // 1st part: Update player
-    updateEverything(e.keyCode)
+    switch (e.keyCode) {
+        case 37: player.move("left"); break;
+        case 38: player.move("up"); break;
+        case 39: player.move("right"); break;
+        case 40: player.move("down"); break;
+    }
+}
 
-    // 2nd part: draw everything
+function animation() {
+    updateEverything()
     drawEverything()
 }
 
-setInterval(() => {
-    switch(player.orientation){
-        case "down": player.moveDown(); break;
-        case "left": player.moveLeft(); break;
-        case "up": player.moveUp(); break;
-        case "right": player.moveRight(); break;
-    }
-    
-    drawEverything()
-}, 500)
+setInterval(animation, 200)

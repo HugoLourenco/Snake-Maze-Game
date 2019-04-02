@@ -1,23 +1,22 @@
 class Fire {
-    constructor(maxCol,maxRow,src){
+    constructor(maxCol,maxRow){
       this.maxCol = maxCol
       this.maxRow = maxRow
       this.setRandomPosition()
   
       this.img = new Image()
-      this.img.src = src
+      this.img.src=  './imagens/fire.png'
     }
     setRandomPosition(){
       this.col = Math.floor(Math.random()*this.maxCol)
-      this.row = Math.floor(Math.random()*this.maxRow)
+      this.row = 1+Math.floor(Math.random()*(this.maxRow-1)) // No fire on row 1
     }
-
-    drawFire(x, y, ctx){
-      //desenhas o fire
+    draw(ctx) {
       ctx.drawImage(
-        fire.img, 
-        x, y,
-        25, // TODO: find the right ratio
+        this.img, 
+        this.col * 25, 
+        this.row * 25, 
+        25,
         25
       )
     }

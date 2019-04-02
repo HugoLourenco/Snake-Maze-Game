@@ -1,6 +1,10 @@
-* {
-    font-family: Arial, Helvetica, sans-serif;
+html {
+    background-image: url("/Imagens/wallpaperimg.png");
+    background-repeat: no-repeat;
+    background-size: 100% 126%;
 }
+
+
 
 canvas {
     display: block;
@@ -8,11 +12,19 @@ canvas {
     max-height: calc(100vh-120px);
     max-width: 95vw;
     margin: auto;
+    background-color: rgb(233, 232, 186);
+
 }
 
-.title {
+h1 {
     text-align: center;
-    height: 50px;
-    line-height: 50px;
-    margin: 25px;
+    height: 5px;
+    line-height: 5px;
+    margin-bottom: 120px;
+}
+
+.container {
+    display: flex;
+    position: relative;
+    justify-content: center;
 }

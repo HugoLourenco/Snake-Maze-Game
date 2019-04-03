@@ -18,33 +18,19 @@ class Character {
 
 
   checkCollison() {
-    /* if (this.cordinates[0] === this.row && this.cordinates[1] === this.col) {
-      this.collision = true
-      console.log("collision")
-    }
-    else {
-      this.cordinates.push([this.row, this.col])
-      console.log("new area")
-    } */
-
-    this.cordinates.forEach(coordenade => {
-      if (coordenade[0] === this.row && coordenade[1] === this.col) {
-
-      }
+    this.previousCoordinates.forEach(coordenade => {
+      if (coordenade.row === this.row && coordenade.col === this.col) {
+        status = "game-over" }
     });
-    fires.forEach(lol => {
-
-      if (this.row === lol.y && this.col === lol.x) {
-      }
-      console.log("hit", lol)
-      // console.log('row: ', this.row)
-      // console.log('col: ', this.col)
-      // console.log('lol.y: ', lol.y)
-      // console.log('lol.x: ', lol.x)
+    // this.previousCoordinates.push([this.row, this.col])
+  }
+  checkCollisonItSelf() {
+    this.previousCoordinates.forEach(coordenade => {
+      console.log(coordenade)
+      if (coordenade.row === coordenade.row-1 && coordenade.col === coordenade.col-1) {
+        status = "game-over" }
     });
-    // console.log(this.row, this.col)
-    this.cordinates.push([this.row, this.col])
-
+    // this.previousCoordinates.push([this.row, this.col])
   }
 
   // Save all the images in the character 

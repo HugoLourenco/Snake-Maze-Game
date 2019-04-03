@@ -121,7 +121,7 @@ document.onkeydown = function (e) {
         case 39: player.move("right"); break;
         case 40: player.move("down"); break;
     }
-    // console.log(e.keyCode)
+    console.log(e.keyCode)
 }
 
 function animation() {
@@ -141,12 +141,3 @@ setInterval(animation, 175)
 function drawScore() {
     scoreText.innerText =  `Score: ${score}`
 }
-
-function newLevel() {
-    if (score > 20) {
-        location.href = '/index2.html';
-    }
-}
-
-
-//~------------------------------------

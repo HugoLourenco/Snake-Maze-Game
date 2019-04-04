@@ -1,4 +1,4 @@
-let score = 0
+
 
 // ----- Code for 1 High Score -----
 document.getElementById('plus').onclick = function () {

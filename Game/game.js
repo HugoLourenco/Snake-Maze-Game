@@ -74,6 +74,8 @@ function drawEverything() {
         ctx.drawImage(poppieGO, 125, 50, width/2, height/2)
         ctx.fillText("Ups, poopie!", width/4.2, height/1.3)
         ctx.restore()
+        saveFirstHighScore(score)
+        renderHighScore()
     }
 }
 
@@ -89,6 +91,8 @@ function updateEverything(keyCode) {
             startPooping = false
             score = player.previousCoordinates.length
             status = "game-over"
+            saveFirstHighScore(score)
+            renderHighScore()
         }
         
     }
@@ -97,11 +101,14 @@ function updateEverything(keyCode) {
         startPooping = false
         score = player.previousCoordinates.length
         status = "game-over"
+        saveFirstHighScore(score)
     }
     if (player.col < 0 || player.row < 0) {
         startPooping = false
         score = player.previousCoordinates.length
         status = "game-over"
+        saveFirstHighScore(score)
+        renderHighScore()
     }
     drawScore();
 } 
@@ -178,9 +185,8 @@ function getFirstHighScoreValue() {
     let currentHighScore = getFirstHighScoreValue() 
     // If we have a new high score
     if (newScore > currentHighScore) {
-      let name = prompt('What is your name?', 'Anonymous')
+      let name = prompt('What is your name?', 'You will never bit Maxence')
       localStorage.setItem('highScoreValue', score)
       localStorage.setItem('highScoreName', name)
     }
   }
-  

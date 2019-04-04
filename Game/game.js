@@ -185,7 +185,7 @@ function getFirstHighScoreValue() {
     let currentHighScore = getFirstHighScoreValue() 
     // If we have a new high score
     if (newScore > currentHighScore) {
-      let name = prompt('What is your name?', 'You will never bit Maxence')
+      let name = prompt('What is your name?', 'You will never beat Maxence')
       localStorage.setItem('highScoreValue', score)
       localStorage.setItem('highScoreName', name)
     }

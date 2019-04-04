@@ -70,7 +70,7 @@ function drawEverything() {
         ctx.font = "50px Arial"
         ctx.fillStyle = "Brown"
         let poppieGO = new Image();
-        poppieGO.src ='./Imagens/poppie.png'
+        poppieGO.src ='Imagens/poppie.png'
         ctx.drawImage(poppieGO, 125, 50, width/2, height/2)
         ctx.fillText("Ups, poopie!", width/4.2, height/1.3)
         ctx.restore()

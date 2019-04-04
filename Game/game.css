@@ -30,6 +30,13 @@ h1 {
     justify-content: center;
 }
 
+.container2 {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    width: 88%;
+}
+
 .button {
     display: flex;
     justify-content: center;
@@ -67,4 +74,18 @@ h1 {
     /* justify-items: flex-start; */
     flex-wrap: wrap;
 
+}
+
+#high-score-name {
+    color: chartreuse;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+}
+
+#high-score-value {
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: chartreuse;
 }

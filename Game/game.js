@@ -143,10 +143,44 @@ function drawScore() {
 }
 
 function newLevel() {
-    if (score > 20) {
+    if (score > 21) {
         location.href = '/index2.html';
     }
 }
 
 
 //~------------------------------------
+document.getElementById('score').onclick = function () {
+    score++
+    document.getElementById('score').innerText = score
+  }
+  document.getElementById('score').onclick = function () {
+    saveFirstHighScore(score)
+    renderHighScore()
+    document.getElementById('score').innerText = score
+  }
+
+function getFirstHighScoreValue() {
+    // localStorage.getItem always return a string
+    return Number(localStorage.getItem('highScoreValue'))
+  }
+  function getFirstHighScoreName() {
+    return 'high score: ' + localStorage.getItem('highScoreName')
+  }
+  function renderHighScore() {
+    document.getElementById("high-score-value").innerText = getFirstHighScoreValue()
+    document.getElementById("high-score-name").innerText = getFirstHighScoreName()
+  }
+  renderHighScore()
+  
+  // Take the score and update the first high score if necessary
+  function saveFirstHighScore(newScore) {
+    let currentHighScore = getFirstHighScoreValue() 
+    // If we have a new high score
+    if (newScore > currentHighScore) {
+      let name = prompt('What is your name?', 'Anonymous')
+      localStorage.setItem('highScoreValue', score)
+      localStorage.setItem('highScoreName', name)
+    }
+  }
+  

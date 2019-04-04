@@ -1,6 +1,5 @@
 let score = 0
 
-/* 
 // ----- Code for 1 High Score -----
 document.getElementById('plus').onclick = function () {
   score++
@@ -36,7 +35,11 @@ function saveFirstHighScore(newScore) {
     localStorage.setItem('highScoreName', name)
   }
 }
-*/
+
+
+
+
+/*
 
 // ----- Code for multiple high scorec -----
 document.getElementById('plus').onclick = function () {
@@ -80,3 +83,4 @@ function renderHighScores() {
   document.getElementById('high-score-3-name').innerText = highScores[2].name
 }
 renderHighScores()
+*/

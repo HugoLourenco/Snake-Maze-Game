@@ -5,7 +5,7 @@ class Fire {
       this.setRandomPosition()
   
       this.img = new Image()
-      this.img.src=  './imagens/poppie.png'
+      this.img.src=  './Imagens/poppie.png'
     }
     setRandomPosition(){
       this.col = Math.floor(Math.random()*this.maxCol)

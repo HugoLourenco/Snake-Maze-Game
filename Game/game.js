@@ -7,13 +7,17 @@ let col = this.col
 let frame = 60
 var NB_OF_TILES = 20
 var TILE_SIZE = width / NB_OF_TILES
-var status = "play" // Possible values: "play", "game-over"
+var status = "home" // Possible values: "home", "play", "game-over"
 let startPooping = false
-let refresh = false
 var player = new Character(0, 0)
 var fires = []
 var score = 0
 var scoreText = document.getElementById("score")
+let music = new Audio()
+music.src = "/Sound/Everybody_poops_Kids_songs.mp3"
+let musicgo = new Audio()
+music.src = "/Sound/Game-over.mp3"
+
 
 for (let i = 0; i< 15; i++) {
     fires.push(new Fire(NB_OF_TILES, NB_OF_TILES))
@@ -53,8 +57,9 @@ function drawGrid() {
 
 function drawEverything() {
     // ctx.clearRect(0,0,width,height)
-
-    if (status === "play") {
+    
+    if (status === "play" || status === "home") {
+        ctx.clearRect(0,0,width,height)
         for (let i = 0; i < fires.length; i++) {
             fires[i].draw(ctx)
         }
@@ -62,7 +67,6 @@ function drawEverything() {
         // ctx.globalAlpha = 0.8; transparencia
         player.checkCollison()
         drawGrid()
-        
     }
     else if (status === "game-over") {
         ctx.save()
@@ -71,25 +75,58 @@ function drawEverything() {
         ctx.fillStyle = "Brown"
         let poppieGO = new Image();
         poppieGO.src ='Imagens/poppie.png'
-        ctx.drawImage(poppieGO, 125, 50, width/2, height/2)
-        ctx.fillText("Ups, poopie!", width/4.2, height/1.3)
+        ctx.drawImage(poppieGO, 125, 20, width/2, height/2)
+        ctx.fillText("Ups, poopie!", 115, 330)
+        ctx.font = "35px Arial"
+        ctx.fillText("Press ENTER to try again", 60, 400)
         ctx.restore()
         saveFirstHighScore(score)
         renderHighScore()
+        document.getElementById('idm').pause()
+        document.getElementById('idmgo').play()
+        setTimeout(() => {
+            document.getElementById('idmgo').pause()
+        }, 2800);
+       
+
     }
+
+    if (status === "home") {
+        ctx.save()
+        ctx.globalAlpha = 0.7
+        ctx.fillStyle = "white"
+        ctx.fillRect(0,0,width,height)
+        ctx.font = "40px Arial"
+        ctx.fillStyle = "Green"
+        ctx.fillText("POOPIE INSTRUCTIONS ", 20, 70)
+        ctx.font = "30px Arial"
+        ctx.fillStyle = "Black"
+        ctx.fillText("Use arrows to comand ", 95, 150)
+        ctx.fillText("your thing", 180, 190)
+        ctx.fillText("Fill everything,", 140, 250)
+        ctx.fillText("without touching", 130,290)
+        ctx.fillText("the poopies,", 160, 330)
+        ctx.fillText("walls or yourself!", 135, 370)
+        ctx.fillText("press -> to start pooping", 100, 440)
+
+        ctx.restore()
+         // todo
+        // instruções
+    }
+
 }
 
-function updateEverything(keyCode) {
+function updateEverything() {
     if(startPooping){
         player.update()
         score = player.previousCoordinates.length
     }
-
+    
     // Check collision with every fire
     for (let i = 0; i < fires.length; i++) {
         if (checkCollision(player, fires[i])) {
             startPooping = false
-            score = player.previousCoordinates.length
+            score = player.previousCoordinates.length-1
             status = "game-over"
             saveFirstHighScore(score)
             renderHighScore()
@@ -99,13 +136,13 @@ function updateEverything(keyCode) {
     // check collision with border
     if (player.col > 19 || player.row > 19) {
         startPooping = false
-        score = player.previousCoordinates.length
+        score = player.previousCoordinates.length-1
         status = "game-over"
         saveFirstHighScore(score)
     }
     if (player.col < 0 || player.row < 0) {
         startPooping = false
-        score = player.previousCoordinates.length
+        score = player.previousCoordinates.length-1
         status = "game-over"
         saveFirstHighScore(score)
         renderHighScore()
@@ -121,14 +158,17 @@ function checkCollision(player, fire) {
 
 document.onkeydown = function (e) {
     e.preventDefault() 
-
+    
     switch (e.keyCode) {
+        case 13: reloadPage(); break;
         case 37: player.move("left"); break;
         case 38: player.move("up"); break;
         case 39: player.move("right"); break;
         case 40: player.move("down"); break;
     }
-    // console.log(e.keyCode)
+    if (!startPooping && status === "home")
+        start()
+    console.log(e.keyCode)
 }
 
 function animation() {
@@ -136,7 +176,14 @@ function animation() {
     drawEverything()
 }
 function start(){
+    status = "play"
     startPooping = true
+    document.getElementById('idm').play()
+    // this.music.play()
+    // this.music.pause()
+    // function Sound() {
+    //    this.music.play()
+    //    this.music.pause()
 }
 
 function reloadPage() {
@@ -156,7 +203,7 @@ function newLevel() {
 }
 
 
-//~------------------------------------
+//~-----------------SCORE----------------------
 document.getElementById('score').onclick = function () {
     score++
     document.getElementById('score').innerText = score
@@ -172,7 +219,7 @@ function getFirstHighScoreValue() {
     return Number(localStorage.getItem('highScoreValue'))
   }
   function getFirstHighScoreName() {
-    return 'high score: ' + localStorage.getItem('highScoreName')
+    return '' + localStorage.getItem('highScoreName')
   }
   function renderHighScore() {
     document.getElementById("high-score-value").innerText = getFirstHighScoreValue()
@@ -185,7 +232,7 @@ function getFirstHighScoreValue() {
     let currentHighScore = getFirstHighScoreValue() 
     // If we have a new high score
     if (newScore > currentHighScore) {
-      let name = prompt('What is your name?', 'You will never beat Maxence')
+      let name = prompt('What is your name?', "You will never beat Maxence")
       localStorage.setItem('highScoreValue', score)
       localStorage.setItem('highScoreName', name)
     }

@@ -94,9 +94,9 @@ function drawEverything() {
         ctx.globalAlpha = 0.8
         ctx.fillStyle = "white"
         ctx.fillRect(0,0,width,height)
-        ctx.font = "40px Arial"
+        ctx.font = "35px Gloria Hallelujah"
         ctx.fillStyle = "Green"
-        ctx.fillText("POOPIE INSTRUCTIONS ", 20, 80)
+        ctx.fillText("POOPIE INSTRUCTIONS ", 40, 80)
         ctx.font = "35px Arial"
         ctx.fillStyle = "Black"
         // ctx.fillText("Use arrows to comand ", 95, 150)
@@ -104,8 +104,10 @@ function drawEverything() {
         ctx.fillText("Fill everything,", 140, 200)
         ctx.fillText("with your poop", 130,250)
         // ctx.fillText("the poopies,", 160, 330)
-        ctx.fillText("Choose your character", 80, 370)
-        ctx.fillText("to start pooping", 135, 420)
+        ctx.fillText("Choose your character", 80, 350)
+        ctx.fillText("to start pooping.", 135, 400)
+        ctx.fillText("Press: 1, 2, 3", 155, 450)
+
 
         ctx.restore()
          // todo

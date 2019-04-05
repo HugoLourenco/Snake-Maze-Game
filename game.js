@@ -17,7 +17,7 @@ let music = new Audio()
 music.src = "./Sound/Everybody_poops_Kids_songs.mp3"
 let musicgo = new Audio()
 music.src = "./Sound/Game-over.mp3"
-
+let fart = true
 
 for (let i = 0; i< 15; i++) {
     fires.push(new Fire(NB_OF_TILES, NB_OF_TILES))
@@ -82,10 +82,14 @@ function drawEverything() {
         ctx.restore()
         saveFirstHighScore(score)
         renderHighScore()
-        document.getElementById('idm').pause()
+        if (fart) {
+            document.getElementById('idm').pause()
         document.getElementById('idmgo').play()
-        document.getElementById('idmgo').pause()
-       
+        setInterval(() => {
+            document.getElementById('idmgo').pause()
+        }, 2000);
+        fart = false
+    }
 
     }
 

@@ -1,5 +1,5 @@
 class Character {
-  constructor(initialCol, initalRow, imgPaths) {
+  constructor(initialCol, initalRow) {
     this.col = initialCol
     this.row = initalRow
     this.score = 0
@@ -8,6 +8,14 @@ class Character {
     this.cordinates = [[0, 0]]
     this.orientation = "right"
     this.previousCoordinates = []
+
+    this.poppieImg = new Image
+    this.poppieImg.src = "./Imagens/poppie.png"
+    this.imgIndex = 0
+    this.headImgs = [this.poppieImg, new Image(), new Image(), new Image()]
+    this.headImgs[1].src = "./Imagens/Joaquim.png"
+    this.headImgs[2].src = "./Imagens/Mostafa.png"
+    this.headImgs[3].src = "./Imagens/Maxence.png"
   }
 
 
@@ -64,9 +72,10 @@ class Character {
     for (let i = 0; i < this.previousCoordinates.length; i++) {
       const col = this.previousCoordinates[i].col;
       const row = this.previousCoordinates[i].row;
-      ctx.fillRect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE)
+      ctx.drawImage(this.poppieImg, col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE)
     }
-    ctx.fillRect(player.col * TILE_SIZE, player.row * TILE_SIZE, TILE_SIZE, TILE_SIZE)
+
+    ctx.drawImage(this.headImgs[this.imgIndex], player.col * TILE_SIZE, player.row * TILE_SIZE, TILE_SIZE, TILE_SIZE)
 
   }
 }

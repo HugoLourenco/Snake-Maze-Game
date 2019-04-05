@@ -17,13 +17,13 @@ canvas {
 
 }
 
-/* .h1 {
-    text-align: center;
-    height: 30px;
-    line-height: 5px;
-    margin-bottom: 0px;
-    margin-top: 0px;
-}  */
+.h1 {
+    /* align-items: center; */
+        /* height: 30px; */
+    /* line-height: 5px; */
+    /* margin-bottom: 0px; */
+    /* margin-top: 0px; */
+} 
 
 .container {
     display: flex;
@@ -119,4 +119,14 @@ canvas {
     padding-top: 30px;
     padding-bottom: 5px;
     color: black;
+}
+
+.character {
+    position: absolute;
+    margin-top: 9%;
+}
+
+.arrows {
+    position: absolute;
+    margin-top: 9%;
 }

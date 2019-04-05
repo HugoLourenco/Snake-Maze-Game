@@ -84,30 +84,28 @@ function drawEverything() {
         renderHighScore()
         document.getElementById('idm').pause()
         document.getElementById('idmgo').play()
-        setTimeout(() => {
-            document.getElementById('idmgo').pause()
-        }, 2800);
+        document.getElementById('idmgo').pause()
        
 
     }
 
     if (status === "home") {
         ctx.save()
-        ctx.globalAlpha = 0.7
+        ctx.globalAlpha = 0.8
         ctx.fillStyle = "white"
         ctx.fillRect(0,0,width,height)
         ctx.font = "40px Arial"
         ctx.fillStyle = "Green"
-        ctx.fillText("POOPIE INSTRUCTIONS ", 20, 70)
-        ctx.font = "30px Arial"
+        ctx.fillText("POOPIE INSTRUCTIONS ", 20, 80)
+        ctx.font = "35px Arial"
         ctx.fillStyle = "Black"
-        ctx.fillText("Use arrows to comand ", 95, 150)
-        ctx.fillText("your thing", 180, 190)
-        ctx.fillText("Fill everything,", 140, 250)
-        ctx.fillText("without touching", 130,290)
-        ctx.fillText("the poopies,", 160, 330)
-        ctx.fillText("walls or yourself!", 135, 370)
-        ctx.fillText("press -> to start pooping", 100, 440)
+        // ctx.fillText("Use arrows to comand ", 95, 150)
+        // ctx.fillText("your thing", 180, 190)
+        ctx.fillText("Fill everything,", 140, 200)
+        ctx.fillText("with your poop", 130,250)
+        // ctx.fillText("the poopies,", 160, 330)
+        ctx.fillText("Choose your character", 80, 370)
+        ctx.fillText("to start pooping", 135, 420)
 
         ctx.restore()
          // todo
@@ -165,6 +163,9 @@ document.onkeydown = function (e) {
         case 38: player.move("up"); break;
         case 39: player.move("right"); break;
         case 40: player.move("down"); break;
+        case 49: player.imgIndex = 1; break;
+        case 50: player.imgIndex = 2; break;
+        case 51: player.imgIndex = 3; break;
     }
     if (!startPooping && status === "home")
         start()

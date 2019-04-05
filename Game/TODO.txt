@@ -1,6 +1,0 @@
-teletransporte
-high scores
-other levels
-descricao
-
-quando chegar a um certo nivel crio um novo html e um novo js com um botao no anterior qur vai diz er take me there

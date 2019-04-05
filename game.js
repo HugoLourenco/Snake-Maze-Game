@@ -14,9 +14,9 @@ var fires = []
 var score = 0
 var scoreText = document.getElementById("score")
 let music = new Audio()
-music.src = "/Sound/Everybody_poops_Kids_songs.mp3"
+music.src = "./Sound/Everybody_poops_Kids_songs.mp3"
 let musicgo = new Audio()
-music.src = "/Sound/Game-over.mp3"
+music.src = "./Sound/Game-over.mp3"
 
 
 for (let i = 0; i< 15; i++) {
